@@ -31,14 +31,12 @@ Flake for running SD on NixOS
 1. For more detailed instructions consult https://invoke-ai.github.io/InvokeAI/installation/INSTALLING_MODELS/#community-contributed-models
 
 ## stable-diffusion-webui aka 111AUTOMATIC111 fork
-1. Clone repo
-1. Clone submodule with stable-diffusion-webui
-1. Run `nix develop .#webui.{default,nvidia,amd}`, wait for shell to build
+1. Run `nix develop github:arcnmx/nix-stable-diffusion#webui.{default,nvidia,amd}`, wait for shell to build
     1. `.#webui.default` builds shell which overrides bare minimum required for SD to run
     1. `.#webui.amd` builds shell which overrides torch packages with ROCM-enabled bin versions
     1. `.#webui.nvidia` builds shell with overlay explicitly setting `cudaSupport = true` for torch
-1. Obtain and place SD weights into `stable-diffusion-webui/models/Stable-diffusion/model.ckpt`
-1. Inside `stable-diffusion-webui/` directory, run `python launch.py` to start web server. It should preload required models from the start. Additional models, such as CLIP, will be loaded before the first actual usage of them.
+1. Obtain and place SD weights into `models/Stable-diffusion/model.ckpt`
+1. Run `webui.py` to start web server. It should preload required models from the start. Additional models, such as CLIP, will be loaded before the first actual usage of them.
 
 # What's needed to be done
 

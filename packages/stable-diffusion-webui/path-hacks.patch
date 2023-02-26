@@ -35,11 +35,40 @@ index 8affd41..394436e 100644
  
      if update_check:
          version_check(commit)
+diff --git a/modules/modelloader.py b/modules/modelloader.py
+index b0f2f33..45d0c72 100644
+--- a/modules/modelloader.py
++++ b/modules/modelloader.py
+@@ -120,11 +120,9 @@ def move_files(src_path: str, dest_path: str, ext_filter: str = None):
+ 
+ 
+ def load_upscalers():
+-    sd = shared.script_path
+     # We can only do this 'magic' method to dynamically load upscalers if they are referenced,
+     # so we'll try to import any _model.py files before looking in __subclasses__
+-    modules_dir = os.path.join(sd, "modules")
+-    for file in os.listdir(modules_dir):
++    for file in os.listdir(shared.modules_path):
+         if "_model.py" in file:
+             model_name = file.replace("_model.py", "")
+             full_model = f"modules.{model_name}_model"
 diff --git a/modules/paths.py b/modules/paths.py
 index 1e7a2fb..1298c58 100644
 --- a/modules/paths.py
 +++ b/modules/paths.py
-@@ -19,10 +19,10 @@ assert sd_path is not None, "Couldn't find Stable Diffusion in any of: " + str(p
+@@ -3,8 +3,9 @@ import os
+ import sys
+ import modules.safe
+ 
+-script_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+-models_path = os.path.join(script_path, "models")
++modules_path = os.path.dirname(os.path.dirname(__file__))
++script_path = os.environ.get('SD_WEBUI_SCRIPT_PATH', '@out@/lib/stable-diffusion-webui')
++models_path = os.environ.get('SD_WEBUI_MODELS_PATH', os.path.join(script_path, "models"))
+ sys.path.insert(0, script_path)
+ 
+ # search for directory of stable diffusion in following places
+@@ -19,10 +20,10 @@ assert sd_path is not None, "Couldn't find Stable Diffusion in any of: " + str(p
  
  path_dirs = [
      (sd_path, 'ldm', 'Stable Diffusion', []),
@@ -54,6 +83,19 @@ index 1e7a2fb..1298c58 100644
  ]
  
  paths = {}
--- 
+diff --git a/modules/shared.py b/modules/shared.py
+index 1a9b828..3335128 100644
+--- a/modules/shared.py
++++ b/modules/shared.py
+@@ -16,7 +16,7 @@ import modules.styles
+ import modules.devices as devices
+ from modules import sd_samplers, sd_models, localization
+ from modules.hypernetworks import hypernetwork
+-from modules.paths import models_path, script_path, sd_path
++from modules.paths import models_path, script_path, modules_path, sd_path
+ 
+ sd_model_file = os.path.join(script_path, 'model.ckpt')
+ default_sd_model_file = sd_model_file
+---
 2.38.1
 

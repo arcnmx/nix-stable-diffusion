@@ -1,0 +1,18 @@
+diff --git a/setup.py b/setup.py
+index a544aa15..e2e81dc8 100644
+--- a/setup.py
++++ b/setup.py
+@@ -1,4 +1,5 @@
+ from setuptools import setup, find_packages
++from glob import glob
+ 
+ setup(
+     name='invoke-ai',
+@@ -10,4 +11,7 @@ setup(
+         'numpy',
+         'tqdm',
+     ],
++    scripts=[
++        'main.py',
++    ] + glob('scripts/*.py'),
+ )
