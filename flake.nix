@@ -137,6 +137,7 @@
               getpass-asterisk = callPackage ./packages/getpass-asterisk { };
 
               deepdanbooru = callPackage ./packages/deepdanbooru { };
+              sentence-transformers = callPackage ./packages/sentence-transformers { };
               tensorflow-io = callPackage ./packages/tensorflow-io { };
               tensorflow-io-bin = callPackage ./packages/tensorflow-io-bin { };
             };
