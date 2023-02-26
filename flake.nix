@@ -48,6 +48,7 @@
               torch = final.torch-bin;
               torchvision = final.torchvision-bin;
               tensorflow = final.tensorflow-bin;
+              tensorflow-io = final.tensorflow-io-bin;
             };
           nvidia = final: super:
             {
@@ -99,7 +100,6 @@
 
               opencv-python = final.opencv4;
               opencv-python-headless = final.opencv-python;
-              tensorflow-io = final.tensorflow-io-bin;
 
               pydeprecate = callPackage ./packages/pydeprecate { };
               taming-transformers-rom1504 =
@@ -137,6 +137,7 @@
               getpass-asterisk = callPackage ./packages/getpass-asterisk { };
 
               deepdanbooru = callPackage ./packages/deepdanbooru { };
+              tensorflow-io = callPackage ./packages/tensorflow-io { };
               tensorflow-io-bin = callPackage ./packages/tensorflow-io-bin { };
             };
         };
